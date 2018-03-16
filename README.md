@@ -10,6 +10,20 @@ A webpack scaffold for bundling JavaScript libraries into a single file that can
 - __global variable__
   - included through the `script` tag
 
+## Installation
+
+Install using yarn:
+
+```bash
+$ yarn add -D webpack-addons-library
+```
+
+Install using npm:
+
+```bash
+$ npm i -D webpack-addons-library
+```
+
 ## Usage
 
 ```bash

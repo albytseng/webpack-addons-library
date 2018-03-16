@@ -46,7 +46,7 @@ module.exports = class WebpackGenerator extends Generator {
       const topScope = [
         createRequire('path'),
         `const pkg = require('./package.json');`,
-        `const {camelCase} = require('lodash')`,
+        `const camelCase = require('lodash.camelcase')`,
         `\n`,
       ];
       configuration.dev.topScope = topScope;

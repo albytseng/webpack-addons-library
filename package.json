@@ -14,7 +14,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
-    "lodash": "^4.17.5",
+    "lodash.camelcase": "^4.3.0",
     "webpack-addons": "^1.1.5",
     "yeoman-generator": "^2.0.3"
   }
