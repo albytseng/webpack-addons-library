@@ -16,7 +16,7 @@ module.exports = function (answer) {
     libraryExport: `'default'`,
 
     // HACK: Fix webpack global object incorrectly defaulting to 'window'
-    globalObject: `"typeof self !== 'undefined' ? self : this"`,
+    globalObject: `'typeof self !== \\'undefined\\' ? self : this'`,
   };
 
   const babelLoaderRule = {
