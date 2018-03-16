@@ -7,6 +7,9 @@
   "author": "Alby Tseng <albytseng@gmail.com>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "test": "",
+  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
