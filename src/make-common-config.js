@@ -1,5 +1,3 @@
-const {camelCase} = require('lodash');
-
 module.exports = function (answer) {
   const context = `path.resolve(__dirname)`;
 
