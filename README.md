@@ -26,16 +26,85 @@ $ npm i -D webpack-addons-library
 
 ## Usage
 
-Begin by running:
+When this utility is run, a short questionnaire guides you through the customization process. Once done, it generates webpack config files in the root directory.
+
+To begin, run:
 
 ```bash
-$ webpack-cli init webpack-addons-library
+$ yarn webpack-cli init webpack-addons-library
 ```
 
-Three questions will be presented to you:
+Or to begin with npx:
 
-1) __What is the entry point of your library?__ Default: `src/index.js`.
+```bash
+$ npx webpack-cli init webpack-addons-library
+```
 
-2) __What is the output filename?__ Default: The package name as listed in `package.json`. Regardless of the filename, the exposed `libraryName` will be the uncapitalized camelcase form of the package name (e.g. the library name of `some-amazing-package` will be `someAmazingPackage`).
+### Customization questionnaire
 
-3) __Use which mode's config as the default webpack config?__ Default: `dev`. Selecting `dev` would create `webpack.config.js` with development-mode options, and would be the default config used by webpack when you run `yarn webpack`. Additionally, `webpack.prod.config.js` is created with production-mode options (usable as `yarn webpack --config webpack.prod.config.js`).
+#### 1) What is the entry point of your library?
+
+*Default:* `src/index.js`
+
+#### 2) What is the output filename?
+
+*Default:* `dist/<package-name>.js`
+
+- `<package-name>` is the name listed in `package.json`.
+
+#### 3) What is the exposed name of your library?
+
+*Default:* the uncapitalized camelCase form of the package name
+
+You can think of this as the name that outside code uses to refer to your library.
+
+#### 4) In your entry point's return value, which export do you want to expose?
+
+- `<value>`
+  - An entry point's return value is the namespace or module returned by that file. For example, if your entry point is this file:
+
+  ```JavaScript
+  // your entry point: index.js
+  export const greet = () => console.log('hello world');
+  ```
+
+  then `greet` is exposed to users of your library as follows:
+
+  ```JavaScript
+  // user of your library
+  require('your-library').greet(); // 'hello world'
+  ```
+
+  - This means that if you have a default export, it must be referenced explicitly:
+
+  ```JavaScript
+  // your entry point: index.js
+  export const greet = () => console.log('hello world');
+  export default () => console.log('👋 🌎');
+  ```
+
+  ```JavaScript
+  // user of your library
+  require('your-library').default(); // '👋 🌎'
+  ```
+
+- `<value>.default`
+  - Selecting this assigns the default export of your library to the point of exposure:
+
+  ```JavaScript
+  // user of your library
+  require('your-library')(); // '👋 🌎'
+  require('your-library').greet // undefined
+  ```
+
+#### 5) Use which mode's config as the default webpack config?
+
+- `dev`
+  - Selecting `dev` creates `webpack.config.js` with development-mode settings, and would be the default config used by webpack when you run `yarn webpack`.
+  - Additionally, `webpack.prod.config.js` is created with production-mode settings (usable as `yarn webpack --config webpack.prod.config.js`).
+
+- `prod`
+  - Creates `webpack.config.js` with production-mode settings and `webpack.dev.config.js` with development-mode settings.
+
+- `no default`
+  - Creates `webpack.dev.config.js` and `webpack.prod.config.js`.

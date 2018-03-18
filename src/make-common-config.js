@@ -11,13 +11,18 @@ module.exports = function (answer) {
     filename: answer.output
       ? `'${answer.output}'`
       : '\`dist/${pkg.name}.js\`',
-    library: '\`${camelCase(pkg.name)}\`',
+    library: answer.libraryName
+      ? `'${answer.libraryName}'`
+      : '\`${camelCase(pkg.name)}\`',
     libraryTarget: `'umd'`,
-    libraryExport: `'default'`,
 
     // HACK: Fix webpack global object incorrectly defaulting to 'window'
     globalObject: `'typeof self !== \\'undefined\\' ? self : this'`,
   };
+
+  if (answer.libraryExport === '<value>.default') {
+    output.libraryExport = `'default'`;
+  }
 
   const babelLoaderRule = {
     test: [`/\\.js$/`, `/\\.jsx$/`],

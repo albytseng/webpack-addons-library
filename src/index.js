@@ -15,10 +15,14 @@ module.exports = class WebpackGenerator extends Generator {
 
   prompting() {
     return this.prompt([
-      Input('entry', '(1/3) What is the entry point of your library? (src/index.js)'),
-      Input('output', '(2/3) What is the output filename? (dist/<package-name>.js)'),
-
-      List('defaultMode', '(3/3) Use which mode\'s config as the default webpack config? (dev)', [
+      Input('entry', '(1/5) What is the entry point of your library? (src/index.js)'),
+      Input('output', '(2/5) What is the output filename? (dist/<package-name>.js)'),
+      Input('libraryName', '(3/5) What is the exposed name of your library? (camelCase <package-name>)'),
+      List('libraryExport', '(4/5) Given your entry point\'s return <value>, what do you want to export?', [
+        '<value>',
+        '<value>.default',
+      ]),
+      List('defaultMode', '(5/5) Use which mode\'s config as the default webpack config?', [
         'dev',
         'prod',
         'no default',
