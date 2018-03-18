@@ -1,6 +1,6 @@
 {
   "name": "webpack-addons-library",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A webpack scaffold for bundling JavaScript libraries",
   "main": "src/index.js",
   "repository": "https://github.com/albytseng/webpack-addons-library.git",
