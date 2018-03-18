@@ -40,7 +40,7 @@ Or to begin with npx:
 $ npx webpack-cli init webpack-addons-library
 ```
 
-### Customization questionnaire
+## Customization questionnaire
 
 #### 1) What is the entry point of your library?
 
@@ -50,18 +50,18 @@ $ npx webpack-cli init webpack-addons-library
 
 *Default:* `dist/<package-name>.js`
 
-- `<package-name>` is the name listed in `package.json`.
+`<package-name>` is the name listed in `package.json`.
 
 #### 3) What is the exposed name of your library?
 
-*Default:* the uncapitalized camelCase form of the package name
+*Default:* the uncapitalized camelCase form of `<package-name>`.
 
 You can think of this as the name that outside code uses to refer to your library.
 
 #### 4) In your entry point's return value, which export do you want to expose?
 
 - `<value>`
-  - An entry point's return value is the namespace or module returned by that file. For example, if your entry point is this file:
+  An entry point's return value is the namespace or module returned by that file. For example, if your entry point is this file:
 
   ```JavaScript
   // your entry point: index.js
@@ -75,7 +75,7 @@ You can think of this as the name that outside code uses to refer to your librar
   require('your-library').greet(); // 'hello world'
   ```
 
-  - This means that if you have a default export, it must be referenced explicitly:
+  This means that if you have a default export, it must be referenced explicitly:
 
   ```JavaScript
   // your entry point: index.js
@@ -89,7 +89,7 @@ You can think of this as the name that outside code uses to refer to your librar
   ```
 
 - `<value>.default`
-  - Selecting this assigns the default export of your library to the point of exposure:
+  Selecting this assigns the default export of your library to the point of exposure:
 
   ```JavaScript
   // user of your library
@@ -100,11 +100,12 @@ You can think of this as the name that outside code uses to refer to your librar
 #### 5) Use which mode's config as the default webpack config?
 
 - `dev`
-  - Selecting `dev` creates `webpack.config.js` with development-mode settings, and would be the default config used by webpack when you run `yarn webpack`.
-  - Additionally, `webpack.prod.config.js` is created with production-mode settings (usable as `yarn webpack --config webpack.prod.config.js`).
+  Selecting `dev` creates `webpack.config.js` with development-mode settings, and would be the default config used by webpack when you run `yarn webpack`.
+
+  Additionally, `webpack.prod.config.js` is created with production-mode settings (usable as `yarn webpack --config webpack.prod.config.js`).
 
 - `prod`
-  - Creates `webpack.config.js` with production-mode settings and `webpack.dev.config.js` with development-mode settings.
+  Creates `webpack.config.js` with production-mode settings and `webpack.dev.config.js` with development-mode settings.
 
 - `no default`
-  - Creates `webpack.dev.config.js` and `webpack.prod.config.js`.
+  Creates `webpack.dev.config.js` and `webpack.prod.config.js`.
