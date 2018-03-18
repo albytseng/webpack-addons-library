@@ -64,27 +64,27 @@ $ npx webpack-cli init webpack-addons-library
 
   An entry point's return value is the namespace or module returned by that file. For example, if your entry point is this file:
 
-  ```JavaScript
+  ```javascript
   // your entry point: index.js
   export const greet = () => console.log('hello world');
   ```
 
   then `greet` is exposed to users of your library as follows:
 
-  ```JavaScript
+  ```javascript
   // user of your library
   require('your-library').greet(); // 'hello world'
   ```
 
   This means that if you have a default export, it must be referenced explicitly:
 
-  ```JavaScript
+  ```javascript
   // your entry point: index.js
   export const greet = () => console.log('hello world');
   export default () => console.log('👋 🌎');
   ```
 
-  ```JavaScript
+  ```javascript
   // user of your library
   require('your-library').default(); // '👋 🌎'
   ```
@@ -93,7 +93,7 @@ $ npx webpack-cli init webpack-addons-library
 
   Selecting this assigns the default export of your library to the point of exposure:
 
-  ```JavaScript
+  ```javascript
   // user of your library
   require('your-library')(); // '👋 🌎'
   require('your-library').greet // undefined
