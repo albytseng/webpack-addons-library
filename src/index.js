@@ -25,7 +25,6 @@ module.exports = class WebpackGenerator extends Generator {
       List('envTarget', '(5/6) What environment is your library targeting?', [
         'web',
         'node',
-        'isomorphic',
       ]),
       List('defaultMode', '(6/6) Use which mode\'s config as the default webpack config?', [
         'dev',
@@ -48,16 +47,9 @@ module.exports = class WebpackGenerator extends Generator {
           configuration.prod.configName = 'prod.config';
       }
 
-      const configs = makeCommonConfig(answer);
-      if (configs.length > 1) {
-        configuration.dev.webpackOptions =
-          configs.map(c => ({...c, ...devConfig}));
-        configuration.prod.webpackOptions =
-          configs.map(c => ({...c, ...prodConfig}));
-      } else {
-        configuration.dev.webpackOptions = {...configs[0], ...devConfig};
-        configuration.prod.webpackOptions = {...configs[0], ...prodConfig};
-      }
+      const commonConfig = makeCommonConfig(answer);
+      configuration.dev.webpackOptions = {...commonConfig, ...devConfig};
+      configuration.prod.webpackOptions = {...commonConfig, ...prodConfig};
 
       const topScope = [
         createRequire('path'),

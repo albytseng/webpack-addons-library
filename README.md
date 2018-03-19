@@ -110,10 +110,6 @@ $ npx webpack-cli init webpack-addons-library
 
   Targets node-like environments.
 
-- `isomorphic`
-
-  Creates configuration to generate one output for each environment.
-
 #### 6) Use which mode's config as the default webpack config?
 
 - `dev`

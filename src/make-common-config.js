@@ -1,9 +1,3 @@
-const extPattern = /(\.)[^\.]*$/;
-const getNodeOutputName = s => {
-  if (extPattern.test(s)) return s.replace(extPattern, '.node.');
-  return s + '.node.js';
-}
-
 module.exports = function (answer) {
   const context = `path.resolve(__dirname)`;
 
@@ -54,29 +48,14 @@ module.exports = function (answer) {
   };
 
   if (answer.envTarget === 'web') {
-    return [baseConfig];
-  } else {
-    const nodeConfig = {
+    return baseConfig;
+  }
+
+  if (answer.envTarget === 'node') {
+    return {
+      ...baseConfig,
       externals: [`nodeExternals()`],
       target: `'node'`,
     };
-
-    if (answer.envTarget === 'node') {
-      return [{...baseConfig, ...nodeConfig}];
-    }
-
-    if (answer.envTarget === 'isomorphic') {
-      return [
-        baseConfig,
-        {
-          ...baseConfig,
-          ...nodeConfig,
-          output: {
-            ...baseConfig.output,
-            filename: getNodeOutputName(outputName),
-          },
-        },
-      ];
-    }
   }
 };
