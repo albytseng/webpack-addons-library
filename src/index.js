@@ -51,9 +51,9 @@ module.exports = class WebpackGenerator extends Generator {
       const configs = makeCommonConfig(answer);
       if (configs.length > 1) {
         configuration.dev.webpackOptions =
-          configs.map(config => {...config, ...devConfig});
+          configs.map(c => ({...c, ...devConfig}));
         configuration.prod.webpackOptions =
-          configs.map(config => {...config, ...prodConfig});
+          configs.map(c => ({...c, ...prodConfig}));
       } else {
         configuration.dev.webpackOptions = {...configs[0], ...devConfig};
         configuration.prod.webpackOptions = {...configs[0], ...prodConfig};
