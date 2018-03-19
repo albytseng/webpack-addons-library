@@ -48,9 +48,16 @@ module.exports = class WebpackGenerator extends Generator {
           configuration.prod.configName = 'prod.config';
       }
 
-      const commonConfig = makeCommonConfig(answer);
-      configuration.dev.webpackOptions = {...commonConfig, ...devConfig};
-      configuration.prod.webpackOptions = {...commonConfig, ...prodConfig};
+      const configs = makeCommonConfig(answer);
+      if (configs.length > 1) {
+        configuration.dev.webpackOptions =
+          configs.map(config => {...config, ...devConfig});
+        configuration.prod.webpackOptions =
+          configs.map(config => {...config, ...prodConfig});
+      } else {
+        configuration.dev.webpackOptions = {...configs[0], ...devConfig};
+        configuration.prod.webpackOptions = {...configs[0], ...prodConfig};
+      }
 
       const topScope = [
         createRequire('path'),
