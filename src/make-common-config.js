@@ -54,7 +54,7 @@ module.exports = function (answer) {
   };
 
   if (answer.envTarget === 'web') {
-    return baseConfig;
+    return [baseConfig];
   } else {
     const nodeConfig = {
       externals: [`nodeExternals()`],
@@ -62,7 +62,7 @@ module.exports = function (answer) {
     };
 
     if (answer.envTarget === 'node') {
-      return {...baseConfig, ...nodeConfig};
+      return [{...baseConfig, ...nodeConfig}];
     }
 
     if (answer.envTarget === 'isomorphic') {
