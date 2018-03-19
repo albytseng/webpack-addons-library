@@ -53,7 +53,7 @@ module.exports = function (answer) {
     },
   };
 
-  if (envTarget === 'web') {
+  if (answer.envTarget === 'web') {
     return baseConfig;
   } else {
     const nodeConfig = {
@@ -61,11 +61,11 @@ module.exports = function (answer) {
       target: `'node'`,
     };
 
-    if (envTarget === 'node') {
+    if (answer.envTarget === 'node') {
       return {...baseConfig, ...nodeConfig};
     }
 
-    if (envTarget === 'isomorphic') {
+    if (answer.envTarget === 'isomorphic') {
       return [
         baseConfig,
         {
