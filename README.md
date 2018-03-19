@@ -2,7 +2,8 @@
 
 [![Build Status](https://img.shields.io/travis/albytseng/webpack-addons-library.svg)](https://travis-ci.org/albytseng/webpack-addons-library) [![npm Version](https://img.shields.io/npm/v/webpack-addons-library.svg)](https://www.npmjs.com/package/webpack-addons-library)
 
-A webpack scaffold for bundling JavaScript libraries into a single file that can be accessed as any of the following:
+A utility for creating webpack configuration files for bundling JavaScript libraries. The exporting output can be accessed as any of the following:
+
 - __ES2015 module__
   - `import somePackage from 'some-package'`
 - __CommonJS module__
@@ -99,11 +100,25 @@ $ npx webpack-cli init webpack-addons-library
   require('your-library').greet // undefined
   ```
 
-#### 5) Use which mode's config as the default webpack config?
+#### 5) What environment is your library targeting?
+
+- `web`
+
+  Targets the web environment.
+
+- `node`
+
+  Targets node-like environments.
+
+- `isomorphic`
+
+  Creates configuration to generate one output for each environment.
+
+#### 6) Use which mode's config as the default webpack config?
 
 - `dev`
 
-  Selecting `dev` creates `webpack.config.js` with development-mode settings, and would be the default config used by webpack when you run `yarn webpack`.
+  Creates `webpack.config.js` with development-mode settings, and would be the default config used by webpack when you run `yarn webpack`.
 
   Additionally, `webpack.prod.config.js` is created with production-mode settings (usable as `yarn webpack --config webpack.prod.config.js`).
 

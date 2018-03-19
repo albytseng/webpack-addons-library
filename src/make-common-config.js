@@ -1,3 +1,9 @@
+const extPattern = /(\.)[^\.]*$/;
+const getNodeOutputName = s => {
+  if (extPattern.test(s)) return s.replace(extPattern, '.node.');
+  return s + '.node.js';
+}
+
 module.exports = function (answer) {
   const context = `path.resolve(__dirname)`;
 
@@ -6,11 +12,13 @@ module.exports = function (answer) {
     : `'src/index.js'`;
   const entry = `path.resolve(__dirname, ${entryName})`;
 
+  const outputName = answer.output
+    ? `'${answer.output}'`
+    : '\`dist/${pkg.name}.js\`';
+
   const output = {
     path: `path.resolve(__dirname)`,
-    filename: answer.output
-      ? `'${answer.output}'`
-      : '\`dist/${pkg.name}.js\`',
+    filename: outputName,
     library: answer.libraryName
       ? `'${answer.libraryName}'`
       : '\`${camelCase(pkg.name)}\`',
@@ -33,7 +41,8 @@ module.exports = function (answer) {
     },
   };
 
-  return {
+
+  const baseConfig = {
     context,
     entry,
     output,
@@ -43,4 +52,31 @@ module.exports = function (answer) {
       ],
     },
   };
+
+  if (envTarget === 'web') {
+    return baseConfig;
+  } else {
+    const nodeConfig = {
+      externals: [`nodeExternals()`],
+      target: `'node'`,
+    };
+
+    if (envTarget === 'node') {
+      return {...baseConfig, ...nodeConfig};
+    }
+
+    if (envTarget === 'isomorphic') {
+      return [
+        baseConfig,
+        {
+          ...baseConfig,
+          ...nodeConfig,
+          output: {
+            ...baseConfig.output,
+            filename: getNodeOutputName(outputName)},
+          },
+        },
+      ];
+    }
+  }
 };

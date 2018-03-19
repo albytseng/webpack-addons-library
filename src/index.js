@@ -15,14 +15,19 @@ module.exports = class WebpackGenerator extends Generator {
 
   prompting() {
     return this.prompt([
-      Input('entry', '(1/5) What is the entry point of your library? (src/index.js)'),
-      Input('output', '(2/5) What is the output filename? (dist/<package-name>.js)'),
-      Input('libraryName', '(3/5) What is the exposed name of your library? (camelCase <package-name>)'),
-      List('libraryExport', '(4/5) Given your entry point\'s return <value>, what do you want to export?', [
+      Input('entry', '(1/6) What is the entry point of your library? (src/index.js)'),
+      Input('output', '(2/6) What is the output filename? (dist/<package-name>.js)'),
+      Input('libraryName', '(3/6) What is the exposed name of your library? (camelCase <package-name>)'),
+      List('libraryExport', '(4/6) Given your entry point\'s return <value>, what do you want to export?', [
         '<value>',
         '<value>.default',
       ]),
-      List('defaultMode', '(5/5) Use which mode\'s config as the default webpack config?', [
+      List('envTarget', '(5/6) What environment is your library targeting?', [
+        'web',
+        'node',
+        'isomorphic',
+      ]),
+      List('defaultMode', '(6/6) Use which mode\'s config as the default webpack config?', [
         'dev',
         'prod',
         'no default',
@@ -49,8 +54,9 @@ module.exports = class WebpackGenerator extends Generator {
 
       const topScope = [
         createRequire('path'),
-        `const pkg = require('./package.json');`,
+        `const nodeExternals = require('webpack-node-externals')`,
         `const camelCase = require('lodash.camelcase')`,
+        `const pkg = require('./package.json');`,
         `\n`,
       ];
       configuration.dev.topScope = topScope;
