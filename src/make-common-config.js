@@ -73,7 +73,7 @@ module.exports = function (answer) {
           ...nodeConfig,
           output: {
             ...baseConfig.output,
-            filename: getNodeOutputName(outputName)},
+            filename: getNodeOutputName(outputName),
           },
         },
       ];
